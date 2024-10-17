@@ -40,7 +40,7 @@ public class GiteeService implements IGiteeService {
         try {
             return clientUtil.getStringFromUrl(url);
         } catch (IOException e) {
-            throw new GiteeRequestException("fail to get files from pr, cause: " + e.getMessage());
+            throw new GiteeRequestException("fail to get files from pr, cause: " + e.getMessage() + ", url: " + url);
         }
 
     }

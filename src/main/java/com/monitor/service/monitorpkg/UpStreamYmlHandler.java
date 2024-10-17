@@ -44,6 +44,7 @@ public class UpStreamYmlHandler implements IUpStreamYmlHandler {
      */
     @Override
     public List<AbstractMonitorPkg> getUpdatedUpstream(String text) {
+        LOGGER.info("body: {}", text);
         PullRequest pr = getPrFromWebHook(text);
         if (pr == null) {
             return Collections.emptyList();
@@ -135,8 +136,7 @@ public class UpStreamYmlHandler implements IUpStreamYmlHandler {
 
         try {
             JsonNode action = node.get("pull_request");
-            String owner = action.get("base").get("repo").get("owner")
-                    .get("username").asText();
+            String owner = action.get("base").get("repo").get("namespace").asText();
             Integer id = action.get("number").asInt();
             String repoName = action.get("base").get("repo").get("path").asText();
             return PullRequest.of(id, owner, repoName);
